@@ -13,6 +13,7 @@ const Post = ({ post }) => {
       <View style={{ marginHorizontal: 15, marginTop: 10 }}>
         <PostFooter />
         <Likes post={post} />
+        <Caption post={post} />
       </View>
     </View>
   )
@@ -75,6 +76,14 @@ const Likes = ({ post }) => (
   </View>
 )
 
+const Caption = ({ post }) => (
+  <View style={{ marginTop: 5 }}>
+    <Text style={{ color: "white" }}>
+      <Text style={{ fontWeight: "600" }}>{post.user}</Text>
+      <Text> {post.caption}</Text>
+    </Text>
+  </View>
+)
 const styles = StyleSheet.create({
   container: {
     marginBottom: 30,
