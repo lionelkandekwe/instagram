@@ -4,11 +4,11 @@ import SafeAreaView from "react-native-safe-area-view"
 import { SafeAreaProvider } from "react-native-safe-area-context"
 import AddNewPost from "../components/newPost/AddNewPost"
 
-const NewPostScreen = () => {
+const NewPostScreen = ({ navigation }) => {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
-        <AddNewPost />
+        <AddNewPost navigation={navigation} />
       </SafeAreaView>
     </SafeAreaProvider>
   )
