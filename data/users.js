@@ -1,8 +1,7 @@
 export const USERS = [
   {
     user: "Lionel",
-    image:
-      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cG9ydHJhaXR8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60",
+    image: "https://i.scdn.co/image/ab6775700000ee851b31fadd4e10c6c6db625ecd",
   },
   {
     user: "Henderson",
