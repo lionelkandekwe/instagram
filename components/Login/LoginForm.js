@@ -32,7 +32,23 @@ const LoginForm = ({ navigation }) => {
         }
       )
     } catch (error) {
-      Alert.alert(error.message)
+      console.log(error.message)
+      Alert.alert(
+        "====",
+        error.message +
+          "\n\n Sorry, login failed. Please double-check your username/password.",
+        [
+          {
+            text: "OK",
+            onPress: () => console.log("OK Pressed"),
+            style: "cancel",
+          },
+          {
+            text: "Sign Up",
+            onPress: () => navigation.push("SignupScreen"),
+          },
+        ]
+      )
     }
   }
 
