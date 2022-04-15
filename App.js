@@ -1,5 +1,4 @@
-import SignedInStack from "./navigation"
-
+import AuthNavigation from "./AuthNavigation"
 import { LogBox } from "react-native"
 
 LogBox.ignoreLogs([
@@ -7,5 +6,5 @@ LogBox.ignoreLogs([
 ])
 
 export default function App() {
-  return <SignedInStack />
+  return <AuthNavigation />
 }
