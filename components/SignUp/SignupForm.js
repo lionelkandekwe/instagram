@@ -12,7 +12,7 @@ import { Formik } from "formik"
 import * as Yup from "yup"
 import Validator from "email-validator"
 import { createUserWithEmailAndPassword } from "firebase/auth"
-import { collection, addDoc } from "firebase/firestore"
+import { collection, addDoc, setDoc, doc } from "firebase/firestore"
 import { auth, db } from "../../firebase"
 
 const SignupForm = ({ navigation }) => {
@@ -39,7 +39,7 @@ const SignupForm = ({ navigation }) => {
       )
       console.log("🔥 Firebase User created Successfully: ", email)
 
-      const docRef = await addDoc(collection(db, "users"), {
+      const docRef = await setDoc(doc(db, "users", authUser.user.email), {
         owner_uid: authUser.user.uid,
         username: username,
         email: authUser.user.email,
