@@ -58,7 +58,7 @@ const FormikPostUploader = ({ navigation }) => {
       collection(db, "users", auth.currentUser.email, "posts"),
       {
         imageUrl: imageUrl,
-        user: currentLoggedInUser.username,
+        username: currentLoggedInUser.username,
         profile_picture: currentLoggedInUser.profilePicture,
         owner_uid: auth.currentUser.uid,
         caption: caption,
