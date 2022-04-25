@@ -83,7 +83,11 @@ const PostFooter = ({ handleLike, post }) => (
     <View style={styles.leftFooterIconsContainer}>
       <TouchableOpacity onPress={() => handleLike(post)}>
         <Image
-          source={{ uri: postFooterIcons[0].imageUrl }}
+          source={{
+            uri: post.likes_by_users.includes(auth.currentUser.email)
+              ? postFooterIcons[0].likedImageUrl
+              : postFooterIcons[0].imageUrl,
+          }}
           style={styles.footerIcon}
         />
       </TouchableOpacity>
