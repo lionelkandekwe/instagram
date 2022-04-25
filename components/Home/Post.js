@@ -1,17 +1,44 @@
 import React from "react"
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native"
 import { Divider } from "react-native-elements"
-
 import { postFooterIcons } from "../../data/postFooterIcons"
+import { auth, db } from "../../firebase"
+import {
+  collection,
+  updateDoc,
+  doc,
+  arrayUnion,
+  arrayRemove,
+} from "firebase/firestore"
 
 const Post = ({ post }) => {
+  const handleLike = (post) => {
+    const currentLikeStatus = !post.likes_by_users.includes(
+      auth.currentUser.email
+    )
+
+    updateDoc(
+      doc(collection(db, "users", post.owner_email, "posts"), post.id),
+      {
+        likes_by_users: currentLikeStatus
+          ? arrayUnion(auth.currentUser.email)
+          : arrayRemove(auth.currentUser.email),
+      }
+    )
+      .then(() => {
+        console.log("Document successfully updated!")
+      })
+      .catch((err) => {
+        console.log("Error updating document: ", err)
+      })
+  }
   return (
     <View style={styles.container}>
       <Divider width={1} orientation="vertical" />
       <PostHeader post={post} />
       <PostImage post={post} />
       <View style={{ marginHorizontal: 15, marginTop: 10 }}>
-        <PostFooter />
+        <PostFooter post={post} handleLike={handleLike} />
         <Likes post={post} />
         <Caption post={post} />
         <CommentSection post={post} />
@@ -51,10 +78,16 @@ const PostImage = ({ post }) => (
   </View>
 )
 
-const PostFooter = () => (
+const PostFooter = ({ handleLike, post }) => (
   <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
     <View style={styles.leftFooterIconsContainer}>
-      <Icon imgStyle={styles.footerIcon} imgUrl={postFooterIcons[0].imageUrl} />
+      <TouchableOpacity onPress={() => handleLike(post)}>
+        <Image
+          source={{ uri: postFooterIcons[0].imageUrl }}
+          style={styles.footerIcon}
+        />
+      </TouchableOpacity>
+
       <Icon imgStyle={styles.footerIcon} imgUrl={postFooterIcons[1].imageUrl} />
       <Icon imgStyle={styles.footerIcon} imgUrl={postFooterIcons[2].imageUrl} />
     </View>

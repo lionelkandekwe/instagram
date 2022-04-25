@@ -9,14 +9,20 @@ import BottomTabs from "../components/Home/BottomTabs"
 import { POSTS } from "../data/posts"
 import { bottomTabIcons } from "../data/bottomTabIcons"
 import { db } from "../firebase"
-import { onSnapshot, collectionGroup } from "firebase/firestore"
+import { onSnapshot, collectionGroup, orderBy } from "firebase/firestore"
 
 const HomeScreen = ({ navigation }) => {
   const [posts, setPosts] = useState([])
   useEffect(() => {
-    onSnapshot(collectionGroup(db, "posts"), (querySnapshot) => {
-      setPosts(querySnapshot.docs.map((doc) => doc.data()))
-    })
+    onSnapshot(
+      collectionGroup(db, "posts"),
+      orderBy("created_at", "desc"),
+      (querySnapshot) => {
+        setPosts(
+          querySnapshot.docs.map((post) => ({ id: post.id, ...post.data() }))
+        )
+      }
+    )
   }, [])
   return (
     <SafeAreaProvider>
